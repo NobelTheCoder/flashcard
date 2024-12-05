@@ -5,6 +5,7 @@ const UploadForm = () => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [file, setFile] = useState(null);
+  const [responseMessage, setResponseMessage] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -13,15 +14,17 @@ const UploadForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!question || !answer || !file) {
-      alert("Please fill all the fields and select a file.");
+    if (!question || !answer) {
+      alert("Please fill all the fields.");
       return;
     }
 
     const formData = new FormData();
     formData.append("question", question);
     formData.append("answer", answer);
-    formData.append("file", file);
+    if (file) {
+      formData.append("file", file);
+    }
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/upload", formData, {
@@ -30,7 +33,12 @@ const UploadForm = () => {
         },
       });
 
-      alert("File uploaded successfully!");
+      if (file) {
+        setResponseMessage("imgav: OK");
+      } else {
+        setResponseMessage("imgav: BAD");
+      }
+      alert(response.data.message);
       console.log(response.data);
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -40,7 +48,7 @@ const UploadForm = () => {
 
   return (
     <div style={{ margin: "20px" }}>
-      <h2>Upload Question and Answer with File</h2>
+      <h2>Upload Question and Answer with Optional File</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Question:</label>
@@ -61,11 +69,14 @@ const UploadForm = () => {
           />
         </div>
         <div>
-          <label>File:</label>
-          <input type="file" onChange={handleFileChange} required />
+          <label>File (Optional):</label>
+          <input type="file" onChange={handleFileChange} />
         </div>
         <button type="submit">Upload</button>
       </form>
+      <div>
+        <p>{responseMessage}</p>
+      </div>
     </div>
   );
 };

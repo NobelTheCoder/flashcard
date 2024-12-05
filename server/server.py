@@ -32,31 +32,36 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 async def upload_file(
     question: str = Form(...),
     answer: str = Form(...),
-    file: UploadFile = File(...)
+    file: UploadFile = File(None)  # Make file optional
 ):
     # Generate timestamp in the format: yearmonthdayhourminutesec
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     
-    # Create the new file path with timestamp and original extension
-    file_extension = file.filename.split('.')[-1]
-    new_filename = f"{timestamp}.{file_extension}"
-    file_path = os.path.join(UPLOAD_DIR, new_filename)
-    
-    # Save the file to the UPLOAD_DIR with the new name
-    with open(file_path, "wb") as f:
-        f.write(await file.read())
-
-    # Generate the file URL
-    file_url = f"http://127.0.0.1:8000/{UPLOAD_DIR}/{new_filename}"
-
-    # Prepare the data
+    # Prepare the data entry
     entry = {
         "question": question,
         "answer": answer,
-        "file_url": file_url
     }
 
-    # Save the data to JSON file
+    if file:
+        # Save the file if uploaded
+        file_extension = file.filename.split('.')[-1]
+        new_filename = f"{timestamp}.{file_extension}"
+        file_path = os.path.join(UPLOAD_DIR, new_filename)
+
+        with open(file_path, "wb") as f:
+            f.write(await file.read())
+
+        # Generate the file URL
+        file_url = f"http://127.0.0.1:8000/{UPLOAD_DIR}/{new_filename}"
+        entry["file_url"] = file_url
+        message = "File uploaded successfully"
+    else:
+        # If no file, set file_url to indicate no image
+        entry["file_url"] = "imgav: BAD"
+        message = "No file uploaded"
+    
+    # Save the data to the JSON file
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as f:
             data = json.load(f)
@@ -68,7 +73,7 @@ async def upload_file(
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-    return JSONResponse(content={"message": "File uploaded successfully", "data": entry})
+    return JSONResponse(content={"message": message, "data": entry})
 
 # Serve the uploaded files
 from fastapi.staticfiles import StaticFiles

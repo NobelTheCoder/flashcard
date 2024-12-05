@@ -1,12 +1,12 @@
 [
     {
-        "name": "2",
-        "age": 2,
-        "file_url": "http://127.0.0.1:8000/files/20241205201812.png"
+        "question": "as",
+        "answer": "as",
+        "file_url": "imgav: BAD"
     },
     {
-        "question": "test",
-        "answer": "test",
-        "file_url": "http://127.0.0.1:8000/files/20241205202044.png"
+        "question": "as",
+        "answer": "as",
+        "file_url": "http://127.0.0.1:8000/files/20241205203117.png"
     }
 ]
