@@ -33,6 +33,6 @@ def read_specific_block(index):
 def get_block(id: int):
     block = read_specific_block(id)
     if block:
-        return {"id": id, "block": block}
+        return block  # Return the block directly as a dictionary
     else:
         raise HTTPException(status_code=404, detail="Block not found")
