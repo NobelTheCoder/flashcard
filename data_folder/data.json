@@ -2,5 +2,9 @@
     {
         "question": "test question",
         "answer": "test answer"
+    },
+    {
+        "question": "What is the capital of Germany?",
+        "answer": "Berlin"
     }
 ]
