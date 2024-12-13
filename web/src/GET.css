@@ -1,9 +1,34 @@
+/* General Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  color: #333;
+  margin: 20px 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Flashcard Styles */
 .flashcard {
   width: 300px;
   height: 200px;
-  margin: 0 auto;
+  margin: 20px auto;
   perspective: 1000px;
   cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s;
 }
 
 .flashcard-inner {
@@ -29,6 +54,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .flashcard-front {
@@ -40,4 +67,122 @@
   background-color: #6c757d;
   color: white;
   transform: rotateY(180deg);
+}
+
+.flashcard h2 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.flashcard p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Hover Effects */
+.flashcard:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.flashcard-front:hover h2,
+.flashcard-back:hover h2 {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.flashcard-front:hover p,
+.flashcard-back:hover p {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Button Styles */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+button.primary:hover {
+  background-color: #0056b3;
+}
+
+button.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+button.secondary:hover {
+  background-color: #565e64;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .flashcard {
+    width: 250px;
+    height: 180px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .flashcard h2 {
+    font-size: 1.2rem;
+  }
+
+  .flashcard p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Alert Messages */
+.alert {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+.navigation a:hover {
+  color: #0056b3;
+}
+
+/* Additional Styling */
+.flashcard-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
