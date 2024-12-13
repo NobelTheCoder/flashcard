@@ -5,6 +5,7 @@ import os
 
 # Initialize FastAPI app
 app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # Adjust this to your frontend URL
@@ -12,6 +13,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 # File path for the data
 folder_name = "data_folder"
 file_name = "data.json"
@@ -35,6 +37,12 @@ def read_specific_block(index):
     else:
         return None
 
+# Function to get total number of blocks
+def get_total_blocks():
+    with open(file_path, "r") as f:
+        data = json.load(f)
+    return len(data)
+
 # FastAPI route to get a specific block by ID
 @app.get("/get/{id}")
 def get_block(id: int):
@@ -43,3 +51,9 @@ def get_block(id: int):
         return block  # Return the block directly as a dictionary
     else:
         raise HTTPException(status_code=404, detail="Block not found")
+
+# FastAPI route to get total number of blocks
+@app.get("/total_blocks")
+def total_blocks():
+    total = get_total_blocks()
+    return {"total_blocks": total}

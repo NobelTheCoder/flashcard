@@ -8,6 +8,7 @@ function GET() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [error, setError] = useState(null);
+  const [totalBlocks, setTotalBlocks] = useState(0);
 
   const fetchBlock = async (index) => {
     try {
@@ -20,15 +21,32 @@ function GET() {
     }
   };
 
+  const fetchTotalBlocks = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/total_blocks");
+      setTotalBlocks(response.data.total_blocks);
+    } catch (err) {
+      setError("Failed to fetch the total number of blocks.");
+    }
+  };
+
   useEffect(() => {
     fetchBlock(currentIndex);
   }, [currentIndex]);
+
+  useEffect(() => {
+    fetchTotalBlocks();
+  }, []);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
 
   const handleNext = () => {
+    if (currentIndex + 1 >= totalBlocks) {
+      setError("No available questions.");
+      return;
+    }
     setIsFlipped(false);
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
