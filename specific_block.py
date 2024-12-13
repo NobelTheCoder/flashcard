@@ -1,10 +1,17 @@
 from fastapi import FastAPI, HTTPException
 import json
+from fastapi.middleware.cors import CORSMiddleware
 import os
 
 # Initialize FastAPI app
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Adjust this to your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # File path for the data
 folder_name = "data_folder"
 file_name = "data.json"
