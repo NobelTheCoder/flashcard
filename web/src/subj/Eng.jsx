@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./GET.css";
+import "./Math.css";
 
-function GET() {
+function Eng() {
   const [currentBlock, setCurrentBlock] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -110,4 +110,4 @@ function GET() {
   );
 }
 
-export default GET;
+export default Eng;
