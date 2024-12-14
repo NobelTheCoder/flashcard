@@ -62,7 +62,8 @@ function GET() {
       <nav className="navbar navbar-expand-lg navbar-light bg-info">
         <div className="container-fluid">
           <a className="navbar-brand text-white" href="#">Home</a>
-          <button className="btn btn-light ms-auto" style={{ borderRadius: "20px" }}>Add</button>
+          <button className="btn btn-light ms-auto" style={{ borderRadius: "20px" }} onClick={() => window.location.href = "/push"}>Add</button>
+
         </div>
       </nav>
 
