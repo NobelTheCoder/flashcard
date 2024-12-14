@@ -12,7 +12,7 @@ function Math() {
 
   const fetchBlock = async (index) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/get/${index}`);
+      const response = await axios.get(`http://127.0.0.1:8000/get/E/${index}`);
       setCurrentBlock(response.data);
       setError(null);
     } catch (err) {
@@ -23,7 +23,7 @@ function Math() {
 
   const fetchTotalBlocks = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/total_blocks");
+      const response = await axios.get("http://127.0.0.1:8000/total_blocks/E");
       setTotalBlocks(response.data.total_blocks);
     } catch (err) {
       setError("Failed to fetch the total number of blocks.");
