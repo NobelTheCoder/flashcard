@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Math.css";
 
-function Eng() {
+function Math() {
   const [currentBlock, setCurrentBlock] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -61,16 +61,18 @@ function Eng() {
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light bg-info">
         <div className="container-fluid">
-          <a className="navbar-brand text-white" href="#">Home</a>
+          <button className="btn btn-info text-white navbar-brand" style={{ border: "none", background: "none", padding: 0 }} onClick={() => window.location.href = "/push"}> Home </button>
           <button className="btn btn-light ms-auto" style={{ borderRadius: "20px" }} onClick={() => window.location.href = "/push"}>Add</button>
-
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="container mt-5 text-center">
-        <h1>Flashcard App</h1>
+      {/* Title */}
+      <div className="title-container">
+        <h1 className="main-title">English</h1>
+      </div>
 
+      {/* Main Content */}
+      <div className="container mt-3 text-center">
         {error && <div className="alert alert-danger">{error}</div>}
 
         {currentBlock ? (
@@ -110,4 +112,4 @@ function Eng() {
   );
 }
 
-export default Eng;
+export default Math;
