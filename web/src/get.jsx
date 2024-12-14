@@ -57,42 +57,53 @@ function GET() {
   };
 
   return (
-    <div className="container mt-5 text-center">
-      <h1>Flashcard App</h1>
+    <div>
+      {/* Navbar */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-info">
+        <div className="container-fluid">
+          <a className="navbar-brand text-white" href="#">Home</a>
+          <button className="btn btn-light ms-auto" style={{ borderRadius: "20px" }}>Add</button>
+        </div>
+      </nav>
 
-      {error && <div className="alert alert-danger">{error}</div>}
+      {/* Main Content */}
+      <div className="container mt-5 text-center">
+        <h1>Flashcard App</h1>
 
-      {currentBlock ? (
-        <div
-          className={`flashcard ${isFlipped ? "flipped" : ""}`}
-          onClick={handleFlip}
-        >
-          <div className="flashcard-inner">
-            <div className="flashcard-front">
-              <h3>Question</h3>
-              <p>{currentBlock.question}</p>
-              <button className="btn btn-primary mt-3">Show Answer</button>
-            </div>
-            <div className="flashcard-back">
-              <h3>Answer</h3>
-              <p>{currentBlock.answer}</p>
-              <button className="btn btn-primary mt-3">Show Question</button>
+        {error && <div className="alert alert-danger">{error}</div>}
+
+        {currentBlock ? (
+          <div
+            className={`flashcard ${isFlipped ? "flipped" : ""}`}
+            onClick={handleFlip}
+          >
+            <div className="flashcard-inner">
+              <div className="flashcard-front">
+                <h3>Question</h3>
+                <p>{currentBlock.question}</p>
+                <button className="btn btn-primary mt-3">Show Answer</button>
+              </div>
+              <div className="flashcard-back">
+                <h3>Answer</h3>
+                <p>{currentBlock.answer}</p>
+                <button className="btn btn-primary mt-3">Show Question</button>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="alert alert-info">Loading...</div>
-      )}
-
-      <div className="navigation mt-4">
-        {currentIndex > 0 && (
-          <button className="btn btn-secondary me-3" onClick={handlePrevious}>
-            &lt; Previous
-          </button>
+        ) : (
+          <div className="alert alert-info">Loading...</div>
         )}
-        <button className="btn btn-secondary" onClick={handleNext}>
-          Next &gt;
-        </button>
+
+        <div className="navigation mt-4">
+          {currentIndex > 0 && (
+            <button className="btn btn-secondary me-3" onClick={handlePrevious}>
+              &lt; Previous
+            </button>
+          )}
+          <button className="btn btn-secondary" onClick={handleNext}>
+            Next &gt;
+          </button>
+        </div>
       </div>
     </div>
   );
