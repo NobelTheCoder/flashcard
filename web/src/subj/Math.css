@@ -8,6 +8,19 @@
   padding: 0.5rem 1rem;
 }
 
+/* Title Styles */
+.title-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 /* Flashcard Styles */
 .flashcard {
   display: inline-block;
@@ -30,7 +43,8 @@
   transform: rotateY(180deg);
 }
 
-.flashcard-front, .flashcard-back {
+.flashcard-front,
+.flashcard-back {
   position: absolute;
   width: 100%;
   height: 100%;

@@ -63,14 +63,16 @@ function Math() {
         <div className="container-fluid">
           <a className="navbar-brand text-white" href="#">Home</a>
           <button className="btn btn-light ms-auto" style={{ borderRadius: "20px" }} onClick={() => window.location.href = "/push"}>Add</button>
-
         </div>
       </nav>
 
-      {/* Main Content */}
-      <div className="container mt-5 text-center">
-        <h1>Flashcard App</h1>
+      {/* Title */}
+      <div className="title-container">
+        <h1 className="main-title">Mathematic</h1>
+      </div>
 
+      {/* Main Content */}
+      <div className="container mt-3 text-center">
         {error && <div className="alert alert-danger">{error}</div>}
 
         {currentBlock ? (
