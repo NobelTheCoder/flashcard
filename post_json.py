@@ -52,5 +52,8 @@ def add_block(block: Block):
 def add_question_answer(block: Block):
     try:
         return add_block(block)
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=500, detail=f"JSON decode error: {e}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {e}")
+

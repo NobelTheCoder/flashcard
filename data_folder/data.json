@@ -1,22 +1,18 @@
 [
     {
-        "question": "test question",
-        "answer": "test answer"
+        "question": "FirstQuestion",
+        "answer": "First Answer"
     },
     {
-        "question": "What is the capital of Germany?",
-        "answer": "Berlin"
+        "question": "Second Question",
+        "answer": "Second Answer"
     },
     {
-        "question": "What is the capital of Germany?",
-        "answer": "Berlin"
+        "question": "Third Question",
+        "answer": "Third Answer"
     },
     {
-        "question": "What is the capital of Germany?",
-        "answer": "Berlin"
-    },
-    {
-        "question": "From React",
-        "answer": "From React"
+        "question": "as",
+        "answer": "as"
     }
 ]
