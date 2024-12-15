@@ -43,7 +43,7 @@ function AddM() {
                 style={{ backgroundColor: "#e0f7fa" }}
             >
                 <div className="card p-4 shadow" style={{ width: "400px" }}>
-                    <h3 className="text-center text-primary mb-4">Add Q&A</h3>
+                    <h3 className="text-center text-primary mb-4">Add Mathematics</h3>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="question" className="form-label text-primary">
