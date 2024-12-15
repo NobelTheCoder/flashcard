@@ -16,29 +16,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# File paths for the data folders
+# File path for the data
 folder_name = "data_folder"
-math_file_name = "Math.json"
-english_file_name = "English.json"
-math_file_path = os.path.join(folder_name, math_file_name)
-english_file_path = os.path.join(folder_name, english_file_name)
+file_name = "data.json"
+file_path = os.path.join(folder_name, file_name)
 
-# Ensure the folder and files exist
+# Ensure the folder and file exist
 if not os.path.exists(folder_name):
     os.makedirs(folder_name)
 
-for file_path in [math_file_path, english_file_path]:
-    if not os.path.exists(file_path):
-        with open(file_path, "w") as f:
-            json.dump([], f)
+if not os.path.exists(file_path):
+    with open(file_path, "w") as f:
+        json.dump([], f)
 
 # Define the request body model
 class Block(BaseModel):
     question: str
     answer: str
 
-# Function to read a specific block from a file
-def read_specific_block(file_path, index):
+# Function to read a specific block
+def read_specific_block(index):
     with open(file_path, "r") as f:
         data = json.load(f)
     
@@ -47,14 +44,14 @@ def read_specific_block(file_path, index):
     else:
         return None
 
-# Function to get total number of blocks from a file
-def get_total_blocks(file_path):
+# Function to get total number of blocks
+def get_total_blocks():
     with open(file_path, "r") as f:
         data = json.load(f)
     return len(data)
 
-# Function to append a question-answer block to a file
-def add_block(file_path, block: Block):
+# Function to append a question-answer block
+def add_block(block: Block):
     with open(file_path, "r") as f:
         data = json.load(f)
     
@@ -66,48 +63,25 @@ def add_block(file_path, block: Block):
     
     return {"message": "Block added successfully!"}
 
-# FastAPI route to get a specific block by ID for Math
-@app.get("/get/M/{id}")
-def get_math_block(id: int):
-    block = read_specific_block(math_file_path, id)
+# FastAPI route to get a specific block by ID
+@app.get("/get/{id}")
+def get_block(id: int):
+    block = read_specific_block(id)
     if block:
         return block  # Return the block directly as a dictionary
     else:
-        raise HTTPException(status_code=404, detail="Block not found in Math")
+        raise HTTPException(status_code=404, detail="Block not found")
 
-# FastAPI route to get a specific block by ID for English
-@app.get("/get/E/{id}")
-def get_english_block(id: int):
-    block = read_specific_block(english_file_path, id)
-    if block:
-        return block  # Return the block directly as a dictionary
-    else:
-        raise HTTPException(status_code=404, detail="Block not found in English")
-
-# FastAPI route to get total number of blocks for Math
-@app.get("/total_blocks/M")
-def total_math_blocks():
-    total = get_total_blocks(math_file_path)
+# FastAPI route to get total number of blocks
+@app.get("/total_blocks")
+def total_blocks():
+    total = get_total_blocks()
     return {"total_blocks": total}
 
-# FastAPI route to get total number of blocks for English
-@app.get("/total_blocks/E")
-def total_english_blocks():
-    total = get_total_blocks(english_file_path)
-    return {"total_blocks": total}
-
-# FastAPI route to add a new question-answer block to Math
-@app.post("/add/M/")
-def add_math_question_answer(block: Block):
+# FastAPI route to add a new question-answer block
+@app.post("/add/")
+def add_question_answer(block: Block):
     try:
-        return add_block(math_file_path, block)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# FastAPI route to add a new question-answer block to English
-@app.post("/add/E/")
-def add_english_question_answer(block: Block):
-    try:
-        return add_block(english_file_path, block)
+        return add_block(block)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
