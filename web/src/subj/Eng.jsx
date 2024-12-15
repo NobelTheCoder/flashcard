@@ -3,7 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Math.css";
 
-function Math() {
+function MathComponent() {
   const [currentBlock, setCurrentBlock] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -61,8 +61,21 @@ function Math() {
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light bg-info">
         <div className="container-fluid">
-          <button className="btn btn-info text-white navbar-brand" style={{ border: "none", background: "none", padding: 0 }} onClick={() => window.location.href = "/"}> Home </button>
-          <button className="btn btn-light ms-auto" style={{ borderRadius: "20px" }} onClick={() => window.location.href = "/push"}>Add</button>
+          <button
+            className="btn btn-info text-white navbar-brand"
+            style={{ border: "none", background: "none", padding: 0 }}
+            onClick={() => (window.location.href = "/")}
+          >
+            Home
+          </button>
+
+          <button
+            className="btn btn-light ms-auto"
+            style={{ borderRadius: "20px" }}
+            onClick={() => (window.location.href = "/push/E")}
+          >
+            Add
+          </button>
         </div>
       </nav>
 
@@ -112,4 +125,4 @@ function Math() {
   );
 }
 
-export default Math;
+export default MathComponent;

@@ -16,18 +16,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# File path for the data
+# Folder and file paths
 folder_name = "data_folder"
-file_name = "data.json"
-file_path = os.path.join(folder_name, file_name)
+file_eng = "English.json"
+file_math = "Math.json"
+file_eng_path = os.path.join(folder_name, file_eng)
+file_math_path = os.path.join(folder_name, file_math)
 
-# Ensure the folder and file exist
+# Ensure the folder and files exist
 if not os.path.exists(folder_name):
     os.makedirs(folder_name)
 
-if not os.path.exists(file_path):
-    with open(file_path, "w") as f:
-        json.dump([], f)
+for file_path in [file_eng_path, file_math_path]:
+    if not os.path.exists(file_path):
+        with open(file_path, "w") as f:
+            json.dump([], f)
 
 # Define the request body model
 class Block(BaseModel):
@@ -35,7 +38,7 @@ class Block(BaseModel):
     answer: str
 
 # Function to read a specific block
-def read_specific_block(index):
+def read_specific_block(file_path, index):
     with open(file_path, "r") as f:
         data = json.load(f)
     
@@ -45,13 +48,13 @@ def read_specific_block(index):
         return None
 
 # Function to get total number of blocks
-def get_total_blocks():
+def get_total_blocks(file_path):
     with open(file_path, "r") as f:
         data = json.load(f)
     return len(data)
 
 # Function to append a question-answer block
-def add_block(block: Block):
+def add_block(file_path, block: Block):
     with open(file_path, "r") as f:
         data = json.load(f)
     
@@ -64,24 +67,45 @@ def add_block(block: Block):
     return {"message": "Block added successfully!"}
 
 # FastAPI route to get a specific block by ID
-@app.get("/get/{id}")
-def get_block(id: int):
-    block = read_specific_block(id)
+@app.get("/get/{category}/{id}")
+def get_block(category: str, id: int):
+    if category == "E":
+        file_path = file_eng_path
+    elif category == "M":
+        file_path = file_math_path
+    else:
+        raise HTTPException(status_code=400, detail="Invalid category")
+
+    block = read_specific_block(file_path, id)
     if block:
         return block  # Return the block directly as a dictionary
     else:
         raise HTTPException(status_code=404, detail="Block not found")
 
 # FastAPI route to get total number of blocks
-@app.get("/total_blocks")
-def total_blocks():
-    total = get_total_blocks()
+@app.get("/total_blocks/{category}")
+def total_blocks(category: str):
+    if category == "E":
+        file_path = file_eng_path
+    elif category == "M":
+        file_path = file_math_path
+    else:
+        raise HTTPException(status_code=400, detail="Invalid category")
+
+    total = get_total_blocks(file_path)
     return {"total_blocks": total}
 
 # FastAPI route to add a new question-answer block
-@app.post("/add/")
-def add_question_answer(block: Block):
+@app.post("/add/{category}")
+def add_question_answer(category: str, block: Block):
+    if category == "E":
+        file_path = file_eng_path
+    elif category == "M":
+        file_path = file_math_path
+    else:
+        raise HTTPException(status_code=400, detail="Invalid category")
+
     try:
-        return add_block(block)
+        return add_block(file_path, block)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
